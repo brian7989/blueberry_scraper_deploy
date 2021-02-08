@@ -61,7 +61,7 @@ def remoteok(keyword):
             jobURL = "https://www.remoteok.io" + t.find("a", {"itemprop": "url"}).attrs["href"]
             companyName = t.find("h3", {"itemprop": "name"}).text
             logoURL = t.find("img", {"class": "logo"})
-            logoURL = logoURL.attrs["src"] if logoURL is not None else "./static/company.svg"
+            logoURL = logoURL.attrs["src"] if logoURL is not None else "https://cdn.onlinewebfonts.com/svg/img_355049.png"
             jobObj = {"logoURL": logoURL, "jobURL": jobURL, "jobTitle": jobTitle, "companyName": companyName}
             jobsArray.append(jobObj)
         except Exception:
