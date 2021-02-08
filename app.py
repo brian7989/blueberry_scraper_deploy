@@ -36,7 +36,7 @@ def wwr(keyword):
             companyName = company.text
             jobURL = "https://www.weworkremotely.com" + company.parent.attrs["href"]
             logo = j.find("div", {"class": "flag-logo"})
-            logoURL = logo.attrs["style"][21:-1] if logo is not None else "./static/company.svg"
+            logoURL = logo.attrs["style"][21:-1] if logo is not None else "https://cdn.onlinewebfonts.com/svg/img_355049.png"
             jobObj = {"logoURL": logoURL, "jobURL": jobURL, "jobTitle": jobTitle, "companyName": companyName}
             jobsArray.append(jobObj)
         except Exception as e:
