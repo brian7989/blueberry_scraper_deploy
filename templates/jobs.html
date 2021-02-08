@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Scraper</title>
+    <link href="https://andybrewer.github.io/mvp/mvp.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+    <style>
+        h1 {
+            color: rgb(77, 75, 220);
+            margin-bottom: 20px;
+        }
+
+        a {
+            color: rgb(77, 75, 200);
+        }
+        i {
+            color: rgb(77, 75, 200);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <a href="/">
+        <h1 class="text-5xl font-semibold">Blueberry Scraper</h1>
+    </a>
+    <h3 class="text-lg">Showing Jobs for: {{ userInput|upper }}</h3>
+    <a href="/export?keyword={{ userInput }}">
+        <h5 class="text-lg">Export to CSV </h5>
+    </a>
+    <i class="fas fa-file-csv"></i>
+</header>
+<section>
+    <div class="flex flex-col">
+        <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Company
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-center text-gray-500 uppercase tracking-wider">
+                                Job Title
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Source
+                            </th>
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">Apply</span>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                        {% for j in db[userInput] %}
+                            {% for i in db[userInput][j] %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="{{ i["logoURL"]
+                                                        }}" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {{ i["companyName"] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm text-gray-900">{{ i["jobTitle"] }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              {{ j }}
+                            </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <a href="{{ i["jobURL"] }}" target="_blank" class="text-indigo-600 hover:text-indigo-900">Apply</a>
+                                    </td>
+                                </tr>
+                            {% endfor %} {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
